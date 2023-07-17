@@ -1,4 +1,4 @@
-package com.example.loconav.flightmanagementsystem.model;
+package com.example.loconav.flightmanagementsystem.model.flight;
 
 import com.example.loconav.flightmanagementsystem.enums.FlightType;
 import lombok.AllArgsConstructor;
@@ -6,11 +6,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
-public class FlightResponse {
+public class FlightInsertRequest {
     private Long flightNumber;
 
     private String origin;
@@ -23,5 +24,5 @@ public class FlightResponse {
 
     private Long expectedArrivalTime;
 
-    private Integer numberOfVacantSeats;
+    private Integer numberOfSeats;
 }

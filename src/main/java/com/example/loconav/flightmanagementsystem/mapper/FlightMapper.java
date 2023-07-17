@@ -2,15 +2,19 @@ package com.example.loconav.flightmanagementsystem.mapper;
 
 import com.example.loconav.flightmanagementsystem.entity.Flight;
 import com.example.loconav.flightmanagementsystem.entity.Ticket;
-import com.example.loconav.flightmanagementsystem.model.FlightInsertRequest;
-import com.example.loconav.flightmanagementsystem.model.FlightResponse;
+import com.example.loconav.flightmanagementsystem.model.flight.FlightInsertRequest;
+import com.example.loconav.flightmanagementsystem.model.flight.FlightResponse;
+import com.example.loconav.flightmanagementsystem.model.ticket.TicketRequest;
+import com.example.loconav.flightmanagementsystem.repo.IFlightRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Component
-public class FLightMapper {
+public class FlightMapper {
+    @Autowired
+    private IFlightRepo flightRepo;
     public Flight flightInsertRequestToFlight(FlightInsertRequest flightInsertRequest) {
         return Flight.builder().flightNumber(flightInsertRequest.getFlightNumber())
                 .departureTime(flightInsertRequest.getDepartureTime())
@@ -31,5 +35,13 @@ public class FLightMapper {
                 .numberOfVacantSeats(flight.getNumberOfSeats() - flight.getNumberOfBookedSeats())
                 .expectedArrivalTime(flight.getExpectedArrivalTime())
                 .build();
+    }
+
+    public Ticket TicketRequestToTicket(TicketRequest ticketRequest) {
+        return Ticket.builder().ticketNumber(ticketRequest.getTicketNumber())
+                .userAge(ticketRequest.getUserAge())
+                .userName(ticketRequest.getUserName())
+                .userGender(ticketRequest.getUserGender())
+                .flight(flightRepo.getFlightById(ticketRequest.getFlightId())).build();
     }
 }
